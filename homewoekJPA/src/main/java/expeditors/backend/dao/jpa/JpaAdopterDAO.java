@@ -3,10 +3,7 @@ package expeditors.backend.dao.jpa;
 import expeditors.backend.adoption.Adopter;
 import expeditors.backend.adoption.Pet;
 import expeditors.backend.dao.BaseDAO;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceUnit;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,10 +26,23 @@ public class JpaAdopterDAO implements BaseDAO<Adopter> {
     @Override
     public boolean update(Adopter updateObject) {
         try{
-            em.merge(updateObject);
-            /*for(Pet pet: updateObject.getPets()){
-                em.persist(pet);
-            }*/
+            Adopter adopterUpdate = em.find(Adopter.class, updateObject.getIdAdopter());
+
+            //EntityTransaction transaction = em.getTransaction();
+            //transaction.begin();
+
+            adopterUpdate.setName(updateObject.getName());
+            adopterUpdate.setPhoneNumber(updateObject.getPhoneNumber());
+            adopterUpdate.setDate(updateObject.getDate());
+
+
+            em.merge(adopterUpdate);
+            //for(Pet pet: adopterUpdate.getPets()){
+            //    em.merge(pet);
+            //}
+
+            //transaction.commit();
+            //em.close();
             return true;
         } catch (Exception e) {
             return false;

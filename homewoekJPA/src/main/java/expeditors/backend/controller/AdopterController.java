@@ -2,18 +2,22 @@ package expeditors.backend.controller;
 
 import expeditors.backend.adoption.Adopter;
 import expeditors.backend.adoption.FilterDTO;
+import expeditors.backend.dao.repository.AdopterRepository;
 import expeditors.backend.service.AdopterService;
+import expeditors.backend.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/adopter")
 public class AdopterController {
     private AdopterService adopterService;
+
 
     public AdopterController(AdopterService adopterService) {
         this.adopterService = adopterService;
@@ -24,10 +28,19 @@ public class AdopterController {
         return ResponseEntity.ok("Hola mundo!!");
     }
 
+    @PostMapping
+    public ResponseEntity<?> addAdopter(@RequestBody Adopter adopter) {
+        Adopter addNewAdopter = adopterService.addAdopter(adopter);
+
+        //URI uri = uriCreator.getUriFor(addNewAdopter.getIdAdopter());
+
+        return ResponseEntity.ok(addNewAdopter);
+    }
+
     @GetMapping("getAdopterById/{idAdopter:\\d+}")
     public ResponseEntity<?> getAdopterById(@PathVariable("idAdopter") int idAdopter) {
-        Adopter adopter =  adopterService.getAdopterById(idAdopter);
-        if(adopter == null) {
+        Optional<Adopter> adopter =  adopterService.getAdopterById(idAdopter);
+        if(adopter.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No found adopter id: " + idAdopter);
         }
         return ResponseEntity.ok(adopter);
@@ -51,8 +64,8 @@ public class AdopterController {
 
     @PutMapping
     public ResponseEntity<?> updateAdopter(@RequestBody Adopter adopter) {
-        boolean result = adopterService.updateAdopter(adopter);
-        if(!result) {
+        Adopter result = adopterService.updateAdopter(adopter);
+        if(result==null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No exist adopter id: " + adopter.getIdAdopter());
         }

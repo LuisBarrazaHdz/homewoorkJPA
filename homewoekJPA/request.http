@@ -4,29 +4,29 @@ Content-Type: application/json
 {"name": "Luis", "phoneNumber": "584-001-580", "dateAdoption": "2024-04-15"}
 ###
 
-POST localhost:8080/adopter
+POST localhost:8080/api/adopter
 Content-Type: application/json
 
-{"name": "Melissa", "phoneNumber": "114-401-577", "dateAdoption": "2024-04-21", "typePet": "Cat", "namePet": "Pelusa", "breedPet": "NA"}
+{"name":"Melisa Ramirez Insert 2", "phoneNumber": "111-000-111", "date": "2000-01-01", "pets": [{"idTypePet": "Dog", "namePet": "Luna Insert", "breedPet": "Husky Siberiano"}] }
 ###
 
-DELETE localhost:8080/api/adopter/2
+DELETE localhost:8080/api/adopter/12
 ###
 
-POST localhost:8080/adopter
+POST localhost:8080/api/adopter
 Content-Type: application/json
 
-{"name": "karla", "phoneNumber": "104-401-577", "dateAdoption": "2024-04-22", "typePet": "Dog", "namePet": "Rex", "breedPet": "Callejero"}
+{"name": "Melisa Ramirez Insert", "phoneNumber": "999-000-111", "date": "2000-01-01", "pets": [] }
 ###
 
 PUT localhost:8080/api/adopter
 Content-Type: application/json
 
-{"idAdopter": 3,"name": "Melisa Ramirez Update", "phoneNumber": "111-000-111", "date": "2000-01-01", "pets": [{"idPet":4, "idTypePet": "Dog", "namePet": "Luna update", "breedPet": "Husky Siberiano"}] }
+{"idAdopter": 3,"name": "Melisa Ramirez Update 2", "phoneNumber": "111-000-111", "date": "2000-01-01", "pets": [{"idPet":4, "idTypePet": "Dog", "namePet": "Luna update", "breedPet": "Husky Siberiano"}] }
 ###
 
 GET http://localhost:8080/api/adopter/getAllAdopters
 ###
 
-GET http://localhost:8080/api/adopter/getAdopterById/6
+GET http://localhost:8080/api/adopter/getAdopterById/3
 ###

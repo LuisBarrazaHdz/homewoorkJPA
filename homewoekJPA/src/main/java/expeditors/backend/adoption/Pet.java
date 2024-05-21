@@ -31,6 +31,10 @@ public class Pet {
     @JoinColumn(name="adopter_id")
     private Adopter adopter;
 
+    public void setAdopter(Adopter adopter) {
+        this.adopter = adopter;
+    }
+
     public Pet(int idPet, int idAdopter, TypePet idTypePet, String namePet, String breedPet) {
         this.idPet = idPet;
         //this.idadopter = idAdopter;
